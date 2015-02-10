@@ -1,0 +1,51 @@
+<div class="row">
+  <h1>Телевизоры</h1>
+
+  <input type="hidden" id="galleryID" value="<%= @gallery.id %>">
+
+  <p>
+    <b>Имя: </b>
+    <%= @gallery.name %>
+  </p>
+
+  <p>
+    <b>Описание: </b>
+    <%= @gallery.description %>
+  </p>
+
+  <div class="form-actions">
+    <%= link_to 'Назад', galleries_path, :class => 'btn btn-mini'  %>
+    <%= link_to 'Изменить ТВ', edit_gallery_path(@gallery), :class => 'btn btn-mini' %>
+    <%= link_to 'Удалить ТВ', gallery_path(@gallery), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-mini' %>
+  </div>
+
+<h2>Pictures</h2>
+</div>
+
+<div class="row">
+  <ul class="thumbnails files">
+<% unless @pictures.empty? %>
+  <% @pictures.each do |pic| %>
+    <li class="span3" id="picture_<%= pic.id %>">
+    <div class="thumbnail">
+      <%= video_tag pic.image.url, height: '100' %>
+      <div class="caption">
+        <p style="text-align: center;">
+        <%= link_to "Изменить", picture_path(pic) %>
+
+        <%=
+          link_to "Удалить", pic,
+            :data => { :confirm => "Are you sure?" },
+            :method => :delete
+          %>
+
+        </p>
+      </div>
+    </div>
+    </li>
+  <% end %>
+<% end %>
+</ul>
+</div>
+
+

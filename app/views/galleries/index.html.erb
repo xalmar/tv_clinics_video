@@ -1,0 +1,25 @@
+<div class="row">
+  <h1>Телевизоры</h1>
+  <%= link_to 'Новый ТВ', new_gallery_path, :class => 'btn btn-mini' %>
+  <p></p>
+  <ul class="thumbnails files">
+    <% @galleries.each do |gallery| %>
+        <li class="span4" id="gallery_<%= gallery.id %>">
+          <div class="thumbnail">
+            <div class="caption">
+              <p style="text-align: center;">
+                <%= gallery.name.truncate(14) %>
+                <%= link_to "Показать", gallery_path(gallery) %>
+                <%= link_to "Изменить", edit_gallery_path(gallery) %>
+                <%= link_to "Удалить", gallery,
+                  :data => { :confirm => "Вы уверены?" },
+                  :method => :delete
+                %>
+              </p>
+            </div>
+          </div>
+        </li>
+    <% end %>
+  </ul>
+
+</div>

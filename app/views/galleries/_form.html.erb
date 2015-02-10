@@ -1,0 +1,59 @@
+<%= form_for @gallery, :html => { :class => 'form-horizontal', multipart: true } do |f| %>
+  <div class="control-group">
+    <label class="control-label">Имя:</label>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label">Описание:</label>
+    <div class="controls">
+      <%= f.text_field :description, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">Видео:</label>
+    <div class="controls">
+      <!-- The magic is coming ...look at my eyes....shazammmm -->
+      <%= file_field_tag "images[]", type: :file, multiple: true %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <h2>Видео</h2>
+</div>
+
+<div class="row">
+  <ul class="thumbnails files">
+<% unless @gallery.pictures.empty? %>
+  <% @gallery.pictures.each do |pic| %>
+    <li class="span3" id="picture_<%= pic.id %>">
+    <div class="thumbnail">
+      <%= video_tag pic.image.url, height: '100' %>
+      <div class="caption">
+        <p style="text-align: center;">
+        <%= link_to "Edit picture", picture_path(pic) %>
+
+        <%=
+          link_to "Delete picture", pic,
+            :data => { :confirm => "Are you sure?" },
+            :method => :delete
+          %>
+
+        </p>
+      </div>
+    </div>
+    </li>
+  <% end %>
+<% end %>
+</ul>
+</div>
+
+  </div>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                galleries_path, :class => 'btn btn-mini' %>
+  </div>
+<% end %>
